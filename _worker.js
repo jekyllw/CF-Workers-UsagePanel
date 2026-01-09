@@ -199,6 +199,10 @@ export default {
         } else {
             return new Response('请先绑定一个KV命名空间到变量KV', { status: 500 });
         }
+    },
+    async scheduled(event, env, ctx) {
+        // 定时执行请求数更新
+        ctx.waitUntil(更新请求数(env));
     }
 };
 
