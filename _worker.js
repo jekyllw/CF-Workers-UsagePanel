@@ -960,17 +960,10 @@ async function UsagePanel主页(TOKEN) {
         });
 
         async function handleLogin() {
-            const username = document.getElementById('adminUsername').value;
+            const username = document.getElementById('adminUsername').value || 'admin';
             const password = document.getElementById('adminPassword').value;
             const loginBtn = document.getElementById('loginBtn');
             const errorDiv = document.getElementById('loginError');
-
-            if (!username) {
-                errorDiv.textContent = '请输入账号';
-                errorDiv.classList.add('show');
-                document.getElementById('adminUsername').focus();
-                return;
-            }
 
             if (!password) {
                 errorDiv.textContent = '请输入密码';
