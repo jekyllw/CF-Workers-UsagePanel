@@ -26,12 +26,14 @@ export default {
             };
 
             if (访问路径 == 'usage.json') {// 请求数使用数据接口 Usage.json
-                let usage_json = usage_json_default;
+                let usage_json = { ...usage_json_default };
                 if (url.searchParams.get('token') === 临时TOKEN || url.searchParams.get('token') === 管理员TOKEN) {
+                    const 当前时间 = Date.now();
                     usage_json = await env.KV.get('usage.json', { type: 'json' }) || usage_json;
                     usage_json.success = true;
                     usage_json.total = (usage_json.pages || 0) + (usage_json.workers || 0);
                     usage_json.msg = '✅ 成功加载请求数使用数据';
+                    if (!usage_json.UpdateTime || (当前时间 - usage_json.UpdateTime) > 20 * 60 * 1000) usage_json = await 更新请求数(env);
                 }
                 return new Response(JSON.stringify(usage_json, null, 2), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
             } else if (访问路径 == 'admin' || 访问路径.startsWith('admin/')) {// 管理员面板
@@ -213,6 +215,7 @@ const usage_json_default = {
     workers: 0, // cf的已使用的workers请求数
     total: 0, // cf的已使用的总请求数
     max: 0, // cf的请求数上限
+    UpdateTime: Date.now(), // 数据最后更新时间的时间戳
     msg: '❌ 无效TOKEN' // 备注信息
 }
 
@@ -262,11 +265,13 @@ async function 更新请求数(env) {
         usage_json.workers = total_workers;
         usage_json.total = total_pages + total_workers;
         usage_json.max = total_max;
+        usage_json.UpdateTime = Date.now();
         usage_json.msg = '✅ 成功更新请求数使用数据';
         await env.KV.put('usage.json', JSON.stringify(usage_json));
     } else {
         // 配置文件存在但为空数组或无效格式
         usage_json.success = true;
+        usage_json.UpdateTime = Date.now();
         usage_json.msg = '⚠️ 尚未添加任何Cloudflare账号';
         await env.KV.put('usage.json', JSON.stringify(usage_json));
     }
