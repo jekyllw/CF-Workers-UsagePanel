@@ -107,7 +107,7 @@ export default {
                         // 验证配置完整性：需要 (Email + GlobalAPIKey) 或 (AccountID + APIToken)
                         const hasEmailAuth = newConfig.Email && newConfig.GlobalAPIKey;
                         const hasTokenAuth = newConfig.AccountID && newConfig.APIToken;
-
+                        
                         if (!hasEmailAuth && !hasTokenAuth) {
                             return new Response(JSON.stringify({ success: false, msg: '配置不完整，需要提供 Email+GlobalAPIKey 或 AccountID+APIToken' }), { status: 400, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
                         }
@@ -142,6 +142,22 @@ export default {
                         let usage_config_json = await env.KV.get('usage_config.json', { type: 'json' });
                         if (!Array.isArray(usage_config_json)) {
                             usage_config_json = [];
+                        }
+
+                        // 验证账号是否已存在 (通过 Email 或 AccountID 判断)
+                        const existingIndex = usage_config_json.findIndex(item => 
+                            (CF_JSON.Email && item.Email && item.Email.toLowerCase() === CF_JSON.Email.toLowerCase()) ||
+                            (CF_JSON.AccountID && item.AccountID && item.AccountID === CF_JSON.AccountID)
+                        );
+
+                        if (existingIndex !== -1) {
+                            // 账号已存在，更新现有账号信息
+                            const existingAccount = usage_config_json[existingIndex];
+                            CF_JSON.ID = existingAccount.ID; // 保留原有 ID
+                            usage_config_json[existingIndex] = CF_JSON;
+                            await env.KV.put('usage_config.json', JSON.stringify(usage_config_json));
+
+                            return new Response(JSON.stringify({ success: true, msg: '账号已存在，已更新账号信息', data: { ID: CF_JSON.ID, Name: CF_JSON.Name } }), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
                         }
 
                         // 生成新 ID：现有最大 ID + 1，如果为空则从 1 开始
