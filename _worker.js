@@ -1875,6 +1875,383 @@ async function UsagePanel主页(TOKEN) {
         @keyframes shimmer {
             100% { transform: translateX(100%); }
         }
+
+        /* ============ 移动端响应式优化 ============ */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            .glass-card {
+                padding: 1.5rem;
+                border-radius: 20px;
+            }
+
+            header {
+                margin-bottom: 2rem;
+            }
+
+            h1 {
+                font-size: 1.25rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .status-badge {
+                padding: 5px 10px;
+                font-size: 0.7rem;
+                gap: 4px;
+            }
+
+            .status-dot {
+                width: 5px;
+                height: 5px;
+            }
+
+            .usage-section {
+                margin-bottom: 1.5rem;
+            }
+
+            .usage-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .label {
+                font-size: 0.85rem;
+            }
+
+            .percentage {
+                font-size: 1.1rem;
+            }
+
+            .progress-track {
+                height: 12px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+                margin-top: 1.25rem;
+            }
+
+            .mini-card {
+                padding: 0.875rem 1rem;
+                gap: 1rem;
+            }
+
+            .mini-icon {
+                font-size: 1.5rem;
+            }
+
+            .mini-label {
+                font-size: 0.65rem;
+            }
+
+            .mini-value {
+                font-size: 1.1rem;
+            }
+
+            .total-text {
+                font-size: 0.75rem;
+                margin-top: 0.375rem;
+            }
+
+            .footer {
+                margin-top: 2rem;
+                font-size: 0.7rem;
+            }
+
+            .theme-bubble {
+                top: 1rem;
+                left: 1rem;
+                width: 44px;
+                height: 44px;
+            }
+
+            .theme-bubble svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .admin-bubble {
+                top: 1rem;
+                right: 1rem;
+                width: 44px;
+                height: 44px;
+            }
+
+            .admin-bubble svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            .login-modal {
+                max-width: calc(100% - 2rem);
+                padding: 1.5rem;
+                border-radius: 18px;
+            }
+
+            .login-modal h2 {
+                font-size: 1.1rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .login-input {
+                padding: 0.75rem 0.875rem;
+                font-size: 0.95rem;
+                margin-bottom: 0.875rem;
+                border-radius: 10px;
+            }
+
+            .login-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.95rem;
+                border-radius: 10px;
+            }
+
+            .close-modal {
+                width: 28px;
+                height: 28px;
+                font-size: 1.1rem;
+                top: 0.75rem;
+                right: 0.75rem;
+            }
+
+            .login-error {
+                padding: 0.65rem 0.875rem;
+                font-size: 0.8rem;
+                border-radius: 8px;
+                margin-bottom: 0.875rem;
+            }
+
+            .toast-notification {
+                bottom: 1.5rem;
+                right: 1rem;
+                left: 1rem;
+                padding: 1rem 1.25rem;
+                font-size: 0.875rem;
+                border-radius: 10px;
+            }
+
+            .loading-container {
+                min-height: 150px;
+                gap: 0.75rem;
+            }
+
+            .spinner {
+                width: 36px;
+                height: 36px;
+                border-width: 2px;
+            }
+
+            .error-msg {
+                padding: 0.875rem;
+                font-size: 0.85rem;
+                border-radius: 10px;
+            }
+        }
+
+        /* 超小屏幕优化 (max-width: 480px) */
+        @media (max-width: 480px) {
+            body {
+                padding: 0.75rem;
+                min-height: 100vh;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            .glass-card {
+                padding: 1.25rem;
+                border-radius: 16px;
+                box-shadow: 
+                    0 15px 30px -8px rgba(0, 0, 0, 0.5),
+                    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+            }
+
+            header {
+                margin-bottom: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.15rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .status-badge {
+                padding: 4px 8px;
+                font-size: 0.65rem;
+                gap: 3px;
+            }
+
+            .usage-section {
+                margin-bottom: 1.25rem;
+            }
+
+            .usage-header {
+                gap: 0.25rem;
+                margin-bottom: 0.625rem;
+            }
+
+            .label {
+                font-size: 0.8rem;
+            }
+
+            .percentage {
+                font-size: 1rem;
+            }
+
+            .progress-track {
+                height: 10px;
+                border-radius: 999px;
+            }
+
+            .stats-grid {
+                gap: 0.5rem;
+                margin-top: 1rem;
+            }
+
+            .mini-card {
+                padding: 0.75rem 0.875rem;
+                gap: 0.875rem;
+            }
+
+            .mini-card:hover {
+                transform: translateY(-2px);
+            }
+
+            .mini-icon {
+                font-size: 1.4rem;
+            }
+
+            .mini-label {
+                font-size: 0.6rem;
+                letter-spacing: 0.03em;
+            }
+
+            .mini-value {
+                font-size: 1rem;
+            }
+
+            .total-text {
+                font-size: 0.7rem;
+            }
+
+            .footer {
+                margin-top: 1.5rem;
+                font-size: 0.65rem;
+            }
+
+            .theme-bubble, .admin-bubble {
+                width: 40px;
+                height: 40px;
+                top: 0.75rem;
+            }
+
+            .theme-bubble {
+                left: 0.75rem;
+            }
+
+            .admin-bubble {
+                right: 0.75rem;
+            }
+
+            .theme-bubble svg, .admin-bubble svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .login-modal-overlay {
+                padding: 1rem;
+            }
+
+            .login-modal {
+                max-width: 100%;
+                width: 100%;
+                padding: 1.25rem;
+                border-radius: 16px;
+            }
+
+            .login-modal h2 {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .login-input {
+                padding: 0.65rem 0.75rem;
+                font-size: 0.9rem;
+                margin-bottom: 0.75rem;
+                border-radius: 8px;
+            }
+
+            .login-input::placeholder {
+                font-size: 0.9rem;
+            }
+
+            .login-btn {
+                padding: 0.65rem 0.875rem;
+                font-size: 0.9rem;
+            }
+
+            .close-modal {
+                width: 26px;
+                height: 26px;
+                font-size: 1rem;
+                top: 0.5rem;
+                right: 0.5rem;
+            }
+
+            .login-error {
+                padding: 0.6rem 0.75rem;
+                font-size: 0.75rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .toast-notification {
+                bottom: 1rem;
+                right: 0.75rem;
+                left: 0.75rem;
+                padding: 0.875rem 1rem;
+                font-size: 0.8rem;
+                max-width: 100%;
+            }
+
+            .loading-container {
+                min-height: 120px;
+                gap: 0.5rem;
+            }
+
+            .spinner {
+                width: 32px;
+                height: 32px;
+                border-width: 2px;
+            }
+
+            .error-msg {
+                padding: 0.75rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* 竖屏超大手机优化 (min-height: 800px) */
+        @media (min-height: 800px) and (max-width: 768px) {
+            body {
+                justify-content: flex-start;
+                padding-top: 3rem;
+                padding-bottom: 2rem;
+            }
+
+            .container {
+                margin: 0 auto;
+            }
+        }
     </style>
 </head>
 <body>
